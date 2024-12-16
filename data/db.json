@@ -250,6 +250,12 @@
       "password": "$2a$10$f1nnPHOlOb5CvlnP7uiTw.SgHvkoYZBY8SQFRM0ZKt4h0YeHwY2gy",
       "name": "Chandra",
       "id": 2
+    },
+    {
+      "email": "chandra1@gmail.com",
+      "password": "$2a$10$/qWIn9FMqOqpqNmq5EzbU.4DI8TesFz4i.nAPSgklvTs91v7XfvV.",
+      "name": "Chandra Sunkita1",
+      "id": 3
     }
   ]
 }
