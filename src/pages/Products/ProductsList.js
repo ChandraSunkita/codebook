@@ -4,26 +4,30 @@ import { ProductCard } from "../../components";
 import { FilterBar } from './components/FilterBar';
 import { useTitle } from "../../hooks";
 import { useFilter } from "../../context";
+import { getProductList } from "../../services";
+import { toast } from "react-toastify";
 
 export const ProductsList = () => {
   const { products, initProductList } = useFilter();
   const [showFilter, setShowFilter] = useState(false);
+  useTitle('Products');
   function handleFilterClick (){
     setShowFilter(!showFilter)
   }
-
   const search = useLocation().search;
   const searchTerm = new URLSearchParams(search).get("q");
 
   useEffect(() => {
     async function fetchProducts() {
-      const response = await fetch(`http://localhost:8000/products?name_like=${searchTerm ? searchTerm : ""}`);
-      const data = await response.json();
-       // eslint-disable-next-line
-      initProductList(data);
+      try{
+        const data = await getProductList(searchTerm);
+        initProductList(data);
+      }catch(error){
+        toast.error(error.message);
+      }
     }
     fetchProducts();
-  }, [searchTerm])
+  }, [searchTerm]); //eslint-disable-line
 
   useTitle('Products');
 

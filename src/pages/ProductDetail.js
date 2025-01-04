@@ -3,13 +3,15 @@ import { useParams } from "react-router-dom";
 import { useTitle } from "../hooks";
 import { useCart } from "../context";
 import { Rating } from "../components";
+import { getProduct } from "../services";
+import { toast } from "react-toastify";
 
 export const ProductDetail = () => {
     const { cartList, addToCart, removeFromCart } = useCart();
     const [inCart, setInCart] = useState(false);
     const [product, setProduct] = useState({});
     const { id } = useParams();
-
+    useTitle('Product details');
     useEffect(()=> {
       const productInCart =  cartList.find(item => item.id === product.id);
       if(productInCart){
@@ -21,9 +23,12 @@ export const ProductDetail = () => {
 
     useEffect(() => {
         async function fetchProduct() {
-            const response = await fetch(`http://localhost:8000/products/${id}`);
-            const data = await response.json();
-            setProduct(data);
+            try {
+              const data = await getProduct(id);
+              setProduct(data);
+            } catch (error) {
+              toast.error(error.message);
+            }
         }
         fetchProduct();
     }, [id]);
