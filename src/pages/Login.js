@@ -12,7 +12,6 @@ export const Login = () => {
 
   async function handleLogin(e) {
     e.preventDefault();
-    
     try {
       const authDetail = {
         email: email.current.value,
